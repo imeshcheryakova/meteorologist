@@ -16,7 +16,8 @@ class ForecastController < ApplicationController
     # The longitude the user input is in the string @lng.
     # ==========================================================================
 
-    url="https://api.forecast.io/forecast/b0e7cfcc7dba2a9ad8e8fa9d6267b500/37.8267,-122.423"
+    url="https://api.forecast.io/forecast/b0e7cfcc7dba2a9ad8e8fa9d6267b500/#{@lat},#{@lng}"
+
     open(url)
     raw_data=open(url).read
     parsed_data=JSON.parse(raw_data)
@@ -32,6 +33,7 @@ class ForecastController < ApplicationController
 
     results4=parsed_data["daily"]
     summary3=results4["summary"]
+
 
     @current_temperature = temperature
 
