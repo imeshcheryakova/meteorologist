@@ -10,6 +10,8 @@ class ForecastController < ApplicationController
     @lat = params[:user_latitude]
     @lng = params[:user_longitude]
 
+
+
     # ==========================================================================
     # Your code goes below.
     # The latitude the user input is in the string @lat.
@@ -25,8 +27,16 @@ class ForecastController < ApplicationController
     temperature=results["temperature"]
     summary=results["summary"]
 
-    results2=parsed_data["minutely"]
-    summary1=results2["summary"]
+    #Only US addresses have minutely. Display "no information available" for non-US addresses.
+
+    summary1="No information available"
+    parsed_data.each do |key,array|
+      if key=="minutely"
+        results2=parsed_data["minutely"]
+        summary1=results2["summary"]
+      end
+    end
+
 
     results3=parsed_data["hourly"]
     summary2=results3["summary"]
